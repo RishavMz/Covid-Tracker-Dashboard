@@ -11,8 +11,7 @@ globalData  {
 
 countrydata {
     countryID       :   integer     primary key
-    countryName     :   String
-    countryID       :   integer     foreign key
+    countryName     :   String      index
     totalConfirmed  :   integer
     totalDeaths     :   integer
     totalRecovered  :   integer
