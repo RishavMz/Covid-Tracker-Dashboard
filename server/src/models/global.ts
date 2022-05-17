@@ -35,4 +35,4 @@ const globalSchema = new mongoose.Schema({
     }
 });
 
-export const globalModel = new mongoose.Model("Global", globalSchema);
+export const Global = new mongoose.Model("Global", globalSchema);

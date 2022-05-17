@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } from "graphql";
+import { Global } from "../models/global";
 
 export const dailyGlobalData = new GraphQLObjectType({
     name: "Global_Data",
@@ -6,7 +7,7 @@ export const dailyGlobalData = new GraphQLObjectType({
     fields: () => ({
         id              :   { type : GraphQLNonNull( GraphQLInt)    },      
         date            :   { type : GraphQLNonNull( GraphQLString) },  
-        newConfrmed     :   { type : GraphQLNonNull( GraphQLInt)    },
+        newconfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
         totalConfirmed  :   { type : GraphQLNonNull( GraphQLInt)    },
         newDeaths       :   { type : GraphQLNonNull( GraphQLInt)    },
         totalDeaths     :   { type : GraphQLNonNull( GraphQLInt)    },
@@ -22,29 +23,41 @@ export const addGlobal = {
         args: {
             id              :   { type : GraphQLNonNull( GraphQLInt)    },      
             date            :   { type : GraphQLNonNull( GraphQLString) },  
-            newConfrmed     :   { type : GraphQLNonNull( GraphQLInt)    },
+            newconfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
             totalConfirmed  :   { type : GraphQLNonNull( GraphQLInt)    },
             newDeaths       :   { type : GraphQLNonNull( GraphQLInt)    },
             totalDeaths     :   { type : GraphQLNonNull( GraphQLInt)    },
             newRecovered    :   { type : GraphQLNonNull( GraphQLInt)    },
             totalRecovered  :   { type : GraphQLNonNull( GraphQLInt)    }
         },
-        resolve: (_parent:any, args: any) => {
-            const dailyAgg = { 
-                id              :   args.id             ,      
-                date            :   args.date           ,  
-                newConfrmed     :   args.newConfrmed    ,
-                totalConfirmed  :   args.totalConfirmed ,
-                newDeaths       :   args.newDeaths      ,
-                totalDeaths     :   args.totalDeaths    ,
-                newRecovered    :   args.newRecovered   ,
-                totalRecovered  :   args.totalRecovered
+        resolve: async(_parent:any, args: any) => {
+            try {
+                const global = new Global({ 
+                    date            :   args.date           ,  
+                    newconfirmed     :   args.newconfirmed    ,
+                    totalConfirmed  :   args.totalConfirmed ,
+                    newDeaths       :   args.newDeaths      ,
+                    totalDeaths     :   args.totalDeaths    ,
+                    newRecovered    :   args.newRecovered   ,
+                    totalRecovered  :   args.totalRecovered
+                })
+                await global.save();
+            } catch(err) {
+                console.log(err);
             }
-            /*
-                SQL Code to add data to table goes here
-            */
-            return dailyAgg;
         }
     }
 } 
 
+export const getGlobal  = {
+    type: dailyGlobalData,
+    description: "Get global details for a given day",
+    args: {
+        date: { type: GraphQLNonNull( GraphQLString ) }
+    },
+    resolve :async(_parent: any, args: any) => {
+        await Global.findOne({ date: args.date }).then((res: any)=> {
+            return res;
+        })
+    }
+}

@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt} from "graphql";
-import { Country, /*Daily*/ } from "../models/country";
+import { Country } from "../models/country";
 
 export const countryData = new GraphQLObjectType({
     name: "Country_data",
@@ -7,6 +7,12 @@ export const countryData = new GraphQLObjectType({
     fields: () => ({
         countryID       :   { type: GraphQLNonNull( GraphQLInt )    },
         countryName     :   { type: GraphQLNonNull( GraphQLString ) },
+        newConfirmed     :  { type: GraphQLNonNull( GraphQLInt )     }, 
+        newDeaths       :  { type: GraphQLNonNull( GraphQLInt )     }, 
+        newRecovered    :  { type: GraphQLNonNull( GraphQLInt )     },
+        totalconfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
+        totalDeaths       :  { type: GraphQLNonNull( GraphQLInt )   }, 
+        totalRecovered    :  { type: GraphQLNonNull( GraphQLInt )   } 
     })
 });
 
@@ -16,11 +22,23 @@ export const addCountry = {
         description: "Add a new country to database",
         args: {
             countryName     :   { type: GraphQLNonNull( GraphQLString ) },
+            newconfirmed     :  { type: GraphQLNonNull( GraphQLInt )     }, 
+            newDeaths       :  { type: GraphQLNonNull( GraphQLInt )     }, 
+            newRecovered    :  { type: GraphQLNonNull( GraphQLInt )     },
+            totalconfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
+            totalDeaths       :  { type: GraphQLNonNull( GraphQLInt )   }, 
+            totalRecovered    :  { type: GraphQLNonNull( GraphQLInt )   } 
         },
         resolve: async(_parent: any, args: any) => {
             try {
                 const country = new Country({ 
-                    countryName     :   args.countryName
+                    countryName     :   args.countryName,
+                    newConfirmed    :   args.newConfirmed    ,
+                    newDeaths       :   args.newDeaths       ,
+                    newRecovered    :   args.newRecovered    ,
+                    totalConfirmed  :   args.totalConfirmed    ,
+                    totalDeaths     :   args.totalDeaths       ,
+                    totalRecovered  :   args.totalRecovered
                 })
                 await country.save();
             } catch(err) {
@@ -30,6 +48,7 @@ export const addCountry = {
     }
 } 
 
+// Individual country details: for analysis
 export const getCountry  = {
     type: countryData,
     description: "Get individual country details by country name",
@@ -43,11 +62,12 @@ export const getCountry  = {
     }
 }
 
+// All country details : For comparison
 export const getCountryAll  = {
     type: new GraphQLList(countryData),
     description: "Get all individual country details",
     resolve : async(_parent: any, _args: any) => {
-        await Country.findOne({}, {countryName: 1}).then((res)=> {
+        await Country.findOne({}, {countryName: 1, newConfirmed: 1, newDeaths: 1, newRecovered: 1, totalConfirmed: 1, totalDeaths: 1, totalRecovered: 1}).then((res)=> {
             return res;
         })
     }
