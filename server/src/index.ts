@@ -1,28 +1,23 @@
-const express = require("express");
-const expressGraphQL = require("express-graphql").graphqlHTTP;
-const dotenv = require("dotenv").config();
-const { dailyCountryData dailyGlobalData, countryData } = require ("./helpers/objects");
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import dotenv from "dotenv";
+import { GraphQLSchema, GraphQLObjectType } from "graphql";
+const RootQuery = require("./rootQuery");
 
+dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
-        name: "HelloWorld",
+        name: "RootQuery",
         fields: () => ({
-            message: {
-                type: GraphQLString,
-                resolve: () => "Hello World"
-            }
+            RootQuery
         })
     })
 })
 
-app.get("/", (req, res) => {
-    res.send("Hello");
-});
-app.use("/graphql", expressGraphQL({
+app.use("/graphql", graphqlHTTP({
     schema: schema,
     graphiql: true
 }));

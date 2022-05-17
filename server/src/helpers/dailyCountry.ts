@@ -1,6 +1,6 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } from "graphql";
 
-const dailyCountryData = new GraphQLObjectType({
+export const dailyCountryData = new GraphQLObjectType({
     name: "Daily_data",
     description: "Country wise data for each dat for determining trends",
     fields: () => ({
@@ -13,7 +13,7 @@ const dailyCountryData = new GraphQLObjectType({
     })
 });
 
-const addDailyCountryData = {
+export const addDailyCountryData = {
     addDailyCountryData : {
         type: dailyCountryData,
         description: "Add daily country stats for that particular day to database",
@@ -24,7 +24,7 @@ const addDailyCountryData = {
             newDeaths       :   { type: GraphQLNonNull( GraphQLInt )    },
             newRecovered    :   { type: GraphQLNonNull( GraphQLInt )    }
         },
-        resolve: (parent, args) => {
+        resolve: (_parent: any, args: any) => {
             const dailyData = { 
                 countryID       :   args.countryID       ,
                 countryName     :   args.countryName     ,
@@ -40,4 +40,3 @@ const addDailyCountryData = {
     }
 } 
 
-module.exports = { dailyCountryData, addDailyCountryData };

@@ -1,6 +1,6 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } from "graphql";
 
-const countryData : Object = new GraphQLObjectType({
+export const countryData = new GraphQLObjectType({
     name: "Country_data",
     description: "Country wise aggregate data",
     fields: () => ({
@@ -12,7 +12,7 @@ const countryData : Object = new GraphQLObjectType({
     })
 });
 
-const addCountry : Object = {
+export const addCountry = {
     addCountry : {
         type: countryData,
         description: "Add a new country to database",
@@ -22,8 +22,8 @@ const addCountry : Object = {
             totalDeaths     :   { type: GraphQLNonNull( GraphQLInt )    },
             totalRecovered  :   { type: GraphQLNonNull( GraphQLInt )    }
         },
-        resolve: (parent, args) => {
-            const country: Object = { 
+        resolve: (_parent: any, args: any) => {
+            const country = { 
                 countryName     :   args.countryName    ,
                 totalConfirmed  :   args.totalConfirmed ,
                 totalDeaths     :   args.totalDeaths    ,
@@ -37,35 +37,31 @@ const addCountry : Object = {
     }
 } 
 
-const getCountry : Object = {
-    getCountry : {
-        type: countryData,
-        description: "Get individual country details by country name",
-        args: {
-            countryName: { type: GraphQLNonNull( GraphQLString ) }
-        },
-        resolve : () => {
-            let data : Object = {} ;
-            /*
-                SQL code to fetch data goes here
-            */
-            return data;
-        }
+export const getCountry  = {
+    type: countryData,
+    description: "Get individual country details by country name",
+    args: {
+        countryName: { type: GraphQLNonNull( GraphQLString ) }
+    },
+    resolve : () => {
+        let data  = {} ;
+        /*
+            SQL code to fetch data goes here
+        */
+        return data;
+    }
+
+}
+
+export const getCountryAll  = {
+    type: new GraphQLList(countryData),
+    description: "Get all individual country details",
+    resolve : () => {
+        let data  = {} ;
+        /*
+            SQL code to fetch data goes here
+        */
+        return data;
     }
 }
 
-const getCountryAll : Object = {
-    getCountryAll : {
-        type: new GraphQLList(countryData),
-        description: "Get all individual country details",
-        resolve : () => {
-            let data : Object = {} ;
-            /*
-                SQL code to fetch data goes here
-            */
-            return data;
-        }
-    }
-}
-
-module.exports = { countryData, addCountry, getCountry, getCountryAll };

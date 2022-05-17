@@ -1,6 +1,6 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } from "graphql";
 
-const dailyGlobalData = new GraphQLObjectType({
+export const dailyGlobalData = new GraphQLObjectType({
     name: "Global_Data",
     description: "Global data for each day for determining trends",
     fields: () => ({
@@ -15,7 +15,7 @@ const dailyGlobalData = new GraphQLObjectType({
     })   
 });
 
-const addGlobal = {
+export const addGlobal = {
     addGlobal : {
         type: dailyGlobalData,
         description: "Add global aggregate data or a particular day to database",
@@ -29,7 +29,7 @@ const addGlobal = {
             newRecovered    :   { type : GraphQLNonNull( GraphQLInt)    },
             totalRecovered  :   { type : GraphQLNonNull( GraphQLInt)    }
         },
-        resolve: (parent, args) => {
+        resolve: (_parent:any, args: any) => {
             const dailyAgg = { 
                 id              :   args.id             ,      
                 date            :   args.date           ,  
@@ -48,4 +48,3 @@ const addGlobal = {
     }
 } 
 
-module.exports = { dailyGlobalData, addGlobal };
