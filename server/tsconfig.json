@@ -34,5 +34,5 @@
     "include": [
       "./src/**/*.tsx",
       "./src/**/*.ts"
-    ]
+, "src/services/getData.js"    ]
   }

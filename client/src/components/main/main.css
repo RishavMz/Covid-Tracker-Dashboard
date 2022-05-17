@@ -1,0 +1,19 @@
+.logoutbtn {
+    margin-top: 5px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    margin-left: 200px;
+    border: none;
+    display: inline-flex;
+}
+
+.dateInput {
+    height: 20pt;
+    width: 150px;
+    margin-right: 200px;
+    text-align: right;
+    border-radius: 20px;
+}
+.navbar {
+    text-align: center;
+}

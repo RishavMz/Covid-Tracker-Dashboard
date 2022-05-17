@@ -4,6 +4,10 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { getCountry, getCountryAll } from "./helpers/country" ;
+import { getGlobal } from "./helpers/global";
+
+//import { fetchData } from "./services/getData";
+//console.log(fetchData);
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
@@ -19,7 +23,8 @@ const schema = new GraphQLSchema({
         description: "Root query",
         fields : () => ({
             getCountry: getCountry,
-            getCountryAll: getCountryAll
+            getCountryAll: getCountryAll,
+            getGlobal : getGlobal
         })
     })
 })

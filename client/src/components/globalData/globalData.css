@@ -1,0 +1,29 @@
+.globalStats { 
+    margin: 25px;
+    padding: 25px;
+    border: 1px solid black;
+    display: inline-block;
+    width: 40%;
+    text-align: center;
+    height: 200px;
+}
+
+.globalTrends {
+    margin: 25px;
+    padding: 25px;
+    border: 1px solid black;
+    display: inline-block;
+    width: 46%;
+    height: 200px;
+}
+
+.globalLabel {
+    margin-top: 18px;
+    font-size: 12pt;
+    color: grey;
+}
+
+.globalValue {
+    font-size: 16pt;
+    color: orange;
+}

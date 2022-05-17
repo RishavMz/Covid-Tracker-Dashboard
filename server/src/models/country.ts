@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const dailySchema = new mongoose.Schema({
     date: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        default: String(new Date().toJSON().slice(8,10)) +"-"+ String(new Date().toJSON().slice(5,7))+"-"+ String(new Date().toJSON().slice(0, 4)) ,
         required: true
     },
     newConfirmed: {

@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const globalSchema = new mongoose.Schema({
     date: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        default: String(new Date().toJSON().slice(8,10)) +"-"+ String(new Date().toJSON().slice(5,7))+"-"+ String(new Date().toJSON().slice(0, 4)) ,
         required: true
     },
     newConfirmed: {
@@ -35,4 +35,4 @@ const globalSchema = new mongoose.Schema({
     }
 });
 
-export const Global = new mongoose.Model("Global", globalSchema);
+export const Global = mongoose.model("Global", globalSchema);
