@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt} from "graphql";
+import { Country, /*Daily*/ } from "../models/country";
 
 export const countryData = new GraphQLObjectType({
     name: "Country_data",
@@ -6,9 +7,6 @@ export const countryData = new GraphQLObjectType({
     fields: () => ({
         countryID       :   { type: GraphQLNonNull( GraphQLInt )    },
         countryName     :   { type: GraphQLNonNull( GraphQLString ) },
-        totalConfirmed  :   { type: GraphQLNonNull( GraphQLInt )    },
-        totalDeaths     :   { type: GraphQLNonNull( GraphQLInt )    },
-        totalRecovered  :   { type: GraphQLNonNull( GraphQLInt )    }
     })
 });
 
@@ -18,21 +16,16 @@ export const addCountry = {
         description: "Add a new country to database",
         args: {
             countryName     :   { type: GraphQLNonNull( GraphQLString ) },
-            totalConfirmed  :   { type: GraphQLNonNull( GraphQLInt )    },
-            totalDeaths     :   { type: GraphQLNonNull( GraphQLInt )    },
-            totalRecovered  :   { type: GraphQLNonNull( GraphQLInt )    }
         },
-        resolve: (_parent: any, args: any) => {
-            const country = { 
-                countryName     :   args.countryName    ,
-                totalConfirmed  :   args.totalConfirmed ,
-                totalDeaths     :   args.totalDeaths    ,
-                totalRecovered  :   args.totalRecoveres
+        resolve: async(_parent: any, args: any) => {
+            try {
+                const country = new Country({ 
+                    countryName     :   args.countryName
+                })
+                await country.save();
+            } catch(err) {
+                console.log(err);
             }
-            /*
-                SQL Code to add data to table goes here
-            */
-            return country;
         }
     }
 } 
@@ -43,37 +36,20 @@ export const getCountry  = {
     args: {
         countryName: { type: GraphQLNonNull( GraphQLString ) }
     },
-    resolve : () => {
-        let data  = [{ }] ;
-        /*
-            SQL code to fetch data goes here
-        */
-        data;
+    resolve :async(_parent: any, args: any) => {
+        await Country.findOne({ countryName: args.countryName }).then((res)=> {
+            return res;
+        })
     }
-
 }
 
 export const getCountryAll  = {
     type: new GraphQLList(countryData),
     description: "Get all individual country details",
-    resolve : () => {
-        let data  = [{ 
-            countryID       :   0,
-            countryName     :   "0",
-            totalConfirmed  :   0,
-            totalDeaths     :   0,
-            totalRecovered  :   0
-        },{
-            countryID       :   1,
-            countryName     :   "1",
-            totalConfirmed  :   1,
-            totalDeaths     :   1,
-            totalRecovered  :   1
-        }] ;
-        /*
-            SQL code to fetch data goes here
-        */
-        return data;
+    resolve : async(_parent: any, _args: any) => {
+        await Country.findOne({}, {countryName: 1}).then((res)=> {
+            return res;
+        })
     }
 }
 

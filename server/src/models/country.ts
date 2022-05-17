@@ -40,9 +40,10 @@ const countrySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    dalyData: {
+    dailyData: {
         type: [dailySchema]
     }
 });
 
-export const gloalModel = new mongoose.Model("Country", countrySchema);
+export const Country = mongoose.model("Country", countrySchema);
+export const Daily   = mongoose.model("Daily", dailySchema);
