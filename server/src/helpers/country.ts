@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt} from "graphql";
 
 export const countryData = new GraphQLObjectType({
     name: "Country_data",
@@ -44,11 +44,11 @@ export const getCountry  = {
         countryName: { type: GraphQLNonNull( GraphQLString ) }
     },
     resolve : () => {
-        let data  = {} ;
+        let data  = [{ }] ;
         /*
             SQL code to fetch data goes here
         */
-        return data;
+        data;
     }
 
 }
@@ -57,7 +57,19 @@ export const getCountryAll  = {
     type: new GraphQLList(countryData),
     description: "Get all individual country details",
     resolve : () => {
-        let data  = {} ;
+        let data  = [{ 
+            countryID       :   0,
+            countryName     :   "0",
+            totalConfirmed  :   0,
+            totalDeaths     :   0,
+            totalRecovered  :   0
+        },{
+            countryID       :   1,
+            countryName     :   "1",
+            totalConfirmed  :   1,
+            totalDeaths     :   1,
+            totalRecovered  :   1
+        }] ;
         /*
             SQL code to fetch data goes here
         */

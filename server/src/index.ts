@@ -1,18 +1,25 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-const RootQuery = require("./rootQuery");
+import { getCountry, getCountryAll } from "./helpers/country" ;
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
+mongoose.connect(process.env.DATABASE_URL|| "");
+const db = mongoose.connection;
+db.on('error', (error) => console.log(error));
+
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
-        name: "RootQuery",
-        fields: () => ({
-            RootQuery
+        name: "Query",
+        description: "Root query",
+        fields : () => ({
+            getCountry: getCountry,
+            getCountryAll: getCountryAll
         })
     })
 })
