@@ -6,6 +6,9 @@ const dailySchema = new mongoose.Schema({
         default: String(new Date().toJSON().slice(8,10)) +"-"+ String(new Date().toJSON().slice(5,7))+"-"+ String(new Date().toJSON().slice(0, 4)) ,
         required: true
     },
+    countryName: {
+        type: String,
+    },
     newConfirmed: {
         type: Number,
         default: 0,

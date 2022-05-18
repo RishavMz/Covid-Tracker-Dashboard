@@ -3,8 +3,12 @@ import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { getCountry, getCountryAll } from "./helpers/country" ;
+import { getCountryAll } from "./helpers/country" ;
+import { getCountry } from "./helpers/dailyCountry";
 import { getGlobal } from "./helpers/global";
+
+//import { initalizer } from "./services/getData";
+//console.log(initalizer);
 
 //import { fetchData } from "./services/getData";
 //console.log(fetchData);

@@ -8,6 +8,22 @@ import axios from "axios";
 import { Global } from "../models/global";
 import { Country, Daily } from "../models/country";
 
+export const initalizer = axios.get('https://api.covid19api.com/summary')
+.then(async(res) => {
+    res.data.Countries.forEach(async(country: any) => {
+        const countryData = new Country({ 
+            countryName     :   country.Country,
+            newConfirmed    :   country.NewConfirmed    ,
+            newDeaths       :   country.NewDeaths       ,
+            newRecovered    :   country.NewRecovered    ,
+            totalConfirmed  :   country.TotalConfirmed    ,
+            totalDeaths     :   country.TotalDeaths       ,
+            totalRecovered  :   country.TotalRecovered    
+        });
+        await countryData.save()
+    });
+});
+
 export const fetchData = axios.get('https://api.covid19api.com/summary')
     .then(async(res) => {
         const global = new Global({ 
@@ -32,8 +48,22 @@ export const fetchData = axios.get('https://api.covid19api.com/summary')
         //console.log("\n\n\n");
 
         res.data.Countries.forEach(async(country: any) => {
+            await Country.updateOne({countryName: country.Country}, { 
+                $set : {
+                    newConfirmed    :   country.NewConfirmed    ,
+                    newDeaths       :   country.NewDeaths       ,
+                    newRecovered    :   country.NewRecovered    ,
+                    totalConfirmed  :   country.TotalConfirmed    ,
+                    totalDeaths     :   country.TotalDeaths       ,
+                    totalRecovered  :   country.TotalRecovered    
+                }
+            });
+        });
+
+        res.data.Countries.forEach(async(country: any) => {
             const dailyData = new Daily({ 
                 date            :   String(new Date().toJSON().slice(8,10)) +"-"+ String(new Date().toJSON().slice(5,7))+"-"+ String(new Date().toJSON().slice(0, 4))                 ,
+                countryName     :   country.Country,
                 newConfirmed    :   country.NewConfirmed    ,
                 newDeaths       :   country.NewDeaths       ,
                 newRecovered    :   country.NewRecovered    ,
@@ -47,7 +77,6 @@ export const fetchData = axios.get('https://api.covid19api.com/summary')
                     $push: {  dailyData: dailyData  }
                 });
             });
-
           //  console.log("date            :   " + String(new Date().toJSON().slice(8,10)) +"-"+ String(new Date().toJSON().slice(5,7))+"-"+ String(new Date().toJSON().slice(0, 4))   +
           //  "  |  newConfirmed    :   " + country.NewConfirmed      +
           //  "  |  newDeaths       :   " + country.NewDeaths         +
@@ -57,8 +86,6 @@ export const fetchData = axios.get('https://api.covid19api.com/summary')
           //  "  |  totalRecovered  :   " + country.TotalRecovered    +          
           //  "\n");
         });
-        
-
     })
     .catch((err) => {
         console.log(err);

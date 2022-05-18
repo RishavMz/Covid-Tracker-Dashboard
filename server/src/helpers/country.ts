@@ -5,12 +5,11 @@ export const countryData = new GraphQLObjectType({
     name: "Country_data",
     description: "Country wise aggregate data",
     fields: () => ({
-        countryID       :   { type: GraphQLNonNull( GraphQLInt )    },
         countryName     :   { type: GraphQLNonNull( GraphQLString ) },
         newConfirmed     :  { type: GraphQLNonNull( GraphQLInt )     }, 
         newDeaths       :  { type: GraphQLNonNull( GraphQLInt )     }, 
         newRecovered    :  { type: GraphQLNonNull( GraphQLInt )     },
-        totalconfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
+        totalConfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
         totalDeaths       :  { type: GraphQLNonNull( GraphQLInt )   }, 
         totalRecovered    :  { type: GraphQLNonNull( GraphQLInt )   } 
     })
@@ -22,10 +21,10 @@ export const addCountry = {
         description: "Add a new country to database",
         args: {
             countryName     :   { type: GraphQLNonNull( GraphQLString ) },
-            newconfirmed     :  { type: GraphQLNonNull( GraphQLInt )     }, 
+            newConfirmed     :  { type: GraphQLNonNull( GraphQLInt )     }, 
             newDeaths       :  { type: GraphQLNonNull( GraphQLInt )     }, 
             newRecovered    :  { type: GraphQLNonNull( GraphQLInt )     },
-            totalconfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
+            totalConfirmed     :  { type: GraphQLNonNull( GraphQLInt )   }, 
             totalDeaths       :  { type: GraphQLNonNull( GraphQLInt )   }, 
             totalRecovered    :  { type: GraphQLNonNull( GraphQLInt )   } 
         },
@@ -48,28 +47,12 @@ export const addCountry = {
     }
 } 
 
-// Individual country details: for analysis
-export const getCountry  = {
-    type: countryData,
-    description: "Get individual country details by country name",
-    args: {
-        countryName: { type: GraphQLNonNull( GraphQLString ) }
-    },
-    resolve :async(_parent: any, args: any) => {
-        await Country.findOne({ countryName: args.countryName }).then((res)=> {
-            return res;
-        })
-    }
-}
-
 // All country details : For comparison
 export const getCountryAll  = {
     type: new GraphQLList(countryData),
     description: "Get all individual country details",
     resolve : async(_parent: any, _args: any) => {
-        await Country.findOne({}, {countryName: 1, newConfirmed: 1, newDeaths: 1, newRecovered: 1, totalConfirmed: 1, totalDeaths: 1, totalRecovered: 1}).then((res)=> {
-            return res;
-        })
+        return await Country.find({}, {countryName: 1, newConfirmed: 1, newDeaths: 1, newRecovered: 1, totalConfirmed: 1, totalDeaths: 1, totalRecovered: 1});
     }
 }
 

@@ -43,8 +43,10 @@ class Main extends React.Component<MainProps, MainState> {
                 <input className='dateInput' type='date' name='date' value={this.state.date} onChange={this.changeHandler}></input>
                 <button type="submit" className='logoutbtn' onClick={this.logout} >LOGOUT</button>
             </div>
+            <hr style={{width: "95%"}}/>
             <div className='dashboard'>
             <GloalData onDate={this.state.onDate}/>
+            <hr style={{width: "75%"}}/>
             <CountryTable/>
             </div>
         </div> );

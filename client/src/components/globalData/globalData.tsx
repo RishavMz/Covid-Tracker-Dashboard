@@ -38,12 +38,7 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
                 <div className='globalValue'>{this.state.totalRecovered}</div>
             </div>
             <div className='globalTrends'>
-            <div className='globalLabel'>Total Confirmed</div>
-                <div className='globalValue'>{this.state.totalConfirmed}</div>
-                <div className='globalLabel'>Total Deaths</div>
-                <div className='globalValue'>{this.state.totalDeaths}</div>
-                <div className='globalLabel'>Total Recovered</div>
-                <div className='globalValue'>{this.state.totalRecovered}</div>
+                <div>TABLE</div>
             </div>
         </div> );
     }

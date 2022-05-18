@@ -5,7 +5,6 @@ export const dailyGlobalData = new GraphQLObjectType({
     name: "Global_Data",
     description: "Global data for each day for determining trends",
     fields: () => ({
-        id              :   { type : GraphQLNonNull( GraphQLInt)    },      
         date            :   { type : GraphQLNonNull( GraphQLString) },  
         newconfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
         totalConfirmed  :   { type : GraphQLNonNull( GraphQLInt)    },
@@ -56,8 +55,6 @@ export const getGlobal  = {
         date: { type: GraphQLNonNull( GraphQLString ) }
     },
     resolve :async(_parent: any, args: any) => {
-        await Global.findOne({ date: args.date }).then((res: any)=> {
-            return res;
-        })
+        return await Global.findOne({ date: args.date });
     }
 }
