@@ -1,32 +1,32 @@
-import './App.css';
-import * as React from 'react';
-import Auth from './components/auth/auth';
-import Main from './components/main/main';
+import "./App.css";
+import * as React from "react";
+import Auth from "./components/auth/auth";
+import Main from "./components/main/main";
 
 interface AppProps {
-  email :    any,
-  firstname: any,
-  lastname:  any
-  authenticate: any,
-  deauthenticate: any
+  email: any;
+  firstname: any;
+  lastname: any;
+  authenticate: any;
+  deauthenticate: any;
 }
- 
+
 interface AppState {
-  email :    any,
-  firstname: any,
-  lastname:  any,
-  loggedIn: Boolean
+  email: any;
+  firstname: any;
+  lastname: any;
+  loggedIn: Boolean;
 }
- 
+
 class App extends React.Component<AppProps, AppState> {
   constructor(props: any) {
     super(props);
-    this.state = { 
-      email :   this.props.email,
+    this.state = {
+      email: this.props.email,
       firstname: this.props.firstname,
       lastname: this.props.lastname,
-      loggedIn: false
-    }
+      loggedIn: false,
+    };
     this.authenticateHelper = this.authenticateHelper.bind(this);
     this.deauthenticateHelper = this.deauthenticateHelper.bind(this);
   }
@@ -35,24 +35,34 @@ class App extends React.Component<AppProps, AppState> {
       email: data.email,
       firstname: data.firstname,
       lastname: data.lastname,
-      loggedIn: true
-    })
-  }
+      loggedIn: true,
+    });
+  };
   deauthenticateHelper = () => {
     this.setState({
       email: "",
       firstname: "",
       lastname: "",
-      loggedIn: false
-    })
-  }
-  
-  render() { 
-    return ( 
-    <div className="App">
-      {this.state.loggedIn===false ? <Auth authenticate={this.authenticateHelper}/> : <Main deauthenticate={this.deauthenticateHelper} email={this.state.email} firstname={this.state.firstname} lastname={this.state.lastname}/>}
-    </div> );
+      loggedIn: false,
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.loggedIn === false ? (
+          <Auth authenticate={this.authenticateHelper} />
+        ) : (
+          <Main
+            deauthenticate={this.deauthenticateHelper}
+            email={this.state.email}
+            firstname={this.state.firstname}
+            lastname={this.state.lastname}
+          />
+        )}
+      </div>
+    );
   }
 }
- 
+
 export default App;

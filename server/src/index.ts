@@ -3,7 +3,12 @@ import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { getCountryAll, getCountry, getCountryDate } from "./helpers/dailyCountry" ;
+import {
+  getCountryAll,
+  getCountry,
+  getCountryDate,
+} from "./helpers/dailyCountry";
+import { addUser, authUser } from "./helpers/user";
 import { getGlobal } from "./helpers/global";
 import cors from "cors";
 
@@ -18,28 +23,39 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
 
-mongoose.connect(process.env.DATABASE_URL|| "");
+mongoose.connect(process.env.DATABASE_URL || "");
 const db = mongoose.connection;
-db.on('error', (error) => console.log(error));
+db.on("error", (error) => console.log(error));
 
 const schema = new GraphQLSchema({
-    query: new GraphQLObjectType({
-        name: "Query",
-        description: "Root query",
-        fields : () => ({
-            getCountry: getCountry,
-            getCountryAll: getCountryAll,
-            getCountryDate: getCountryDate,
-            getGlobal : getGlobal
-        })
-    })
-})
+  query: new GraphQLObjectType({
+    name: "Query",
+    description: "Root query",
+    fields: () => ({
+      authUser: authUser,
+      getCountry: getCountry,
+      getCountryAll: getCountryAll,
+      getCountryDate: getCountryDate,
+      getGlobal: getGlobal,
+    }),
+  }),
+  mutation: new GraphQLObjectType({
+    name: "Mutation",
+    description: "Root mutation",
+    fields: () => ({
+      addUser: addUser,
+    }),
+  }),
+});
 
-app.use("/graphql", graphqlHTTP({
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema: schema,
-    graphiql: true
-}));
+    graphiql: true,
+  })
+);
 
 app.listen(PORT, () => {
-    console.log("Server is up and listening on port "+ PORT);
-})
+  console.log("Server is up and listening on port " + PORT);
+});

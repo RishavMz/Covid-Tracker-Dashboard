@@ -1,73 +1,73 @@
-.globalStats { 
-    margin: 25px;
-    margin-top: 5px;
-    padding: 25px;
-    display: inline-table;
-    width: 30%;
-    text-align: center;
-    height: 30vh;
-    background-color: white;
-    border-radius: 10px;
-    margin-left: 35px;
+.globalStats {
+  margin: 25px;
+  margin-top: 5px;
+  padding: 25px;
+  display: inline-table;
+  width: 30%;
+  text-align: center;
+  height: 30vh;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 35px;
 }
 
 .globalTrends {
-    margin: 25px;
-    margin-top: 5px;
-    padding: 25px;
-    display: inline-table;
-    width: 54%;
-    height: 30vh;
-    border-radius: 10px;
-    background-color: white;
+  margin: 25px;
+  margin-top: 5px;
+  padding: 25px;
+  display: inline-table;
+  width: 54%;
+  height: 30vh;
+  border-radius: 10px;
+  background-color: white;
 }
 
 .globalLabel {
-    margin-top: 18px;
-    font-size: 12pt;
-    color: grey;
+  margin-top: 18px;
+  font-size: 12pt;
+  color: grey;
 }
 
 .globalValue {
-    font-size: 16pt;
-    color: orange;
+  font-size: 16pt;
+  color: orange;
 }
-@media (max-width:1024px)  {
-    .globalStats {
-        display: inline-flex;
-        flex-direction: column;
-        width: 18%;
-        height: 20vh;
-        padding-top: 5vh;
-    }
-    .globalTrends {
-        display: inline-flex;
-        width: 60%;
-        padding-top: 5vh;
-        height: 20vh;
-    }
+@media (max-width: 1024px) {
+  .globalStats {
+    display: inline-flex;
+    flex-direction: column;
+    width: 18%;
+    height: 20vh;
+    padding-top: 5vh;
+  }
+  .globalTrends {
+    display: inline-flex;
+    width: 60%;
+    padding-top: 5vh;
+    height: 20vh;
+  }
 }
-@media (max-width:500px)  {
-    .globalStats {
-        display: block;
-        width: 70%;
-        height: 22vh;
-    }
-    .globalTrends {
-        display: block;
-        width: 75%;
-        height: 20vh;
-    }
+@media (max-width: 500px) {
+  .globalStats {
+    display: block;
+    width: 70%;
+    height: 22vh;
+  }
+  .globalTrends {
+    display: block;
+    width: 75%;
+    height: 20vh;
+  }
 }
-@media (max-width:400px)  {
-    .globalStats {
-        display: block;
-        width: 70%;
-        height: 30vh;
-    }
-    .globalTrends {
-        display: block;
-        width: 75%;
-        height: 20vh;
-    }
+@media (max-width: 400px) {
+  .globalStats {
+    display: block;
+    width: 70%;
+    height: 30vh;
+  }
+  .globalTrends {
+    display: block;
+    width: 75%;
+    height: 20vh;
+  }
 }
