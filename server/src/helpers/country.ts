@@ -47,12 +47,5 @@ export const addCountry = {
     }
 } 
 
-// All country details : For comparison
-export const getCountryAll  = {
-    type: new GraphQLList(countryData),
-    description: "Get all individual country details",
-    resolve : async(_parent: any, _args: any) => {
-        return await Country.find({}, {countryName: 1, newConfirmed: 1, newDeaths: 1, newRecovered: 1, totalConfirmed: 1, totalDeaths: 1, totalRecovered: 1});
-    }
-}
+
 

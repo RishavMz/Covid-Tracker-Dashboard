@@ -3,8 +3,7 @@ import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { getCountryAll } from "./helpers/country" ;
-import { getCountry } from "./helpers/dailyCountry";
+import { getCountryAll, getCountry, getCountryDate } from "./helpers/dailyCountry" ;
 import { getGlobal } from "./helpers/global";
 import cors from "cors";
 
@@ -17,7 +16,7 @@ import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
-app.use(cors);
+app.use(cors());
 
 mongoose.connect(process.env.DATABASE_URL|| "");
 const db = mongoose.connection;
@@ -30,6 +29,7 @@ const schema = new GraphQLSchema({
         fields : () => ({
             getCountry: getCountry,
             getCountryAll: getCountryAll,
+            getCountryDate: getCountryDate,
             getGlobal : getGlobal
         })
     })

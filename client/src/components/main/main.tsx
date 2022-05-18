@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GloalData from '../globalData/globalData';
-import CountryTable from '../countryTable';
+import CountryTable from '../countryTable/countryTable';
 import './main.css';
 
 interface MainProps {
@@ -40,14 +40,14 @@ class Main extends React.Component<MainProps, MainState> {
     render() { 
         return ( <div className='main'>
             <div className='navbar'>
-                <input className='dateInput' type='date' name='date' value={this.state.date} onChange={this.changeHandler}></input>
+                <a className='title dateinput' href="#">COVID TRACKING DASHBOARD</a> 
                 <button type="submit" className='logoutbtn' onClick={this.logout} >LOGOUT</button>
             </div>
             <hr style={{width: "95%"}}/>
             <div className='dashboard'>
             <GloalData onDate={this.state.onDate}/>
             <hr style={{width: "75%"}}/>
-            <CountryTable/>
+            <CountryTable date={this.state.date}/>
             </div>
         </div> );
     }

@@ -55,7 +55,6 @@ export const getGlobal  = {
         date: { type: GraphQLNonNull( GraphQLString ) }
     },
     resolve :async(_parent: any, args: any) => {
-        console.log(args.date)
         return await Global.findOne({ date: args.date });
     }
 }

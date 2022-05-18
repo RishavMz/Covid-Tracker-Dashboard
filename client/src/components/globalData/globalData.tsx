@@ -30,15 +30,14 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         last10          : []
     }
     componentDidMount = async() => {
-        console.log("Called")
         await client.query({query: GET_GLOBAL}).then((res)=> {
-            console.log("Data"+res.data);
-            this.setState({totalConfirmed: res.data.totalConfirmed, totalDeaths: res.data.totalDeaths, totalRecovered: res.data.totalRecovered})
+            this.setState({totalConfirmed: res.data.getGlobal.totalConfirmed, totalDeaths: res.data.getGlobal.totalDeaths, totalRecovered: res.data.getGlobal.totalRecovered})
         })
     }
     render() { 
         return ( <div className='globalData'>
             <div className='globalStats'>
+                <b>WORLDWIDE</b>
                 <div className='globalLabel'>Total Confirmed</div>
                 <div className='globalValue'>{this.state.totalConfirmed}</div>
                 <div className='globalLabel'>Total Deaths</div>

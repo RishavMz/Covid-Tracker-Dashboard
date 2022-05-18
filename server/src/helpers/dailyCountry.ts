@@ -55,10 +55,32 @@ export const addDailyCountryData = {
     }
 } 
 
-// Individual country details: for analysis
+export const getCountryDate  = {
+    type: new GraphQLList(dailyCountryData),
+    description: "Get country details by country name and date",
+    args: {
+        countryName: { type: GraphQLNonNull( GraphQLString ) },
+        date       : { type: GraphQLNonNull( GraphQLString ) },
+    },
+    resolve :async(_parent: any, args: any) => {
+        return await Daily.find({ countryName: args.countryName, date : args.date });
+    }
+}
+
+export const getCountryAll  = {
+    type: new GraphQLList(dailyCountryData),
+    description: "Get all country details by date",
+    args: {
+        date: { type: GraphQLNonNull( GraphQLString ) }
+    },
+    resolve :async(_parent: any, args: any) => {
+        return await Daily.find({ date: args.date }).sort({countryName: 1});
+    }
+}
+
 export const getCountry  = {
     type: new GraphQLList(dailyCountryData),
-    description: "Get individual country details by country name",
+    description: "Get different date details by country",
     args: {
         countryName: { type: GraphQLNonNull( GraphQLString ) }
     },

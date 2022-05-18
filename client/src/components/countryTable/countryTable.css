@@ -1,0 +1,39 @@
+.countryName {
+    display: inline-block;
+    padding: 5px;
+    margin-left: 20px;
+    width: 250px;
+}
+.countryData {
+    display: inline-block;
+    padding: 5px;
+    margin-left: 20px;
+    width: 120px;
+}
+.countryTable {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.countryPanelTitle {
+    padding: 5px ;
+    margin: 5px;
+}
+.countryPanel {
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 5px ;
+    margin: 5px;
+}
+.search {
+    color: grey;
+}
+.searchBar {
+    margin-right: 100px;
+}
+.countryname {
+    width: 210px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+}
