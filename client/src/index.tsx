@@ -20,7 +20,6 @@ ReactDOM.render(
         deauthenticate={""}
       />
     </ApolloProvider>
-    ,
   </React.StrictMode>,
   document.getElementById("root")
 );

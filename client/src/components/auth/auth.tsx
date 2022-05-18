@@ -1,4 +1,6 @@
 import * as React from "react";
+import { ADD_USER, AUTH_USER } from "../graphql/auth";
+import { client } from "../../index";
 import "./auth.css";
 
 interface AuthProps {
@@ -15,6 +17,9 @@ interface AuthState {
   signupEmail: any;
   signupPassword: any;
   signupPasswordC: any;
+  message: any;
+  messagestatus: any;
+  signedup: any;
 }
 
 class Auth extends React.Component<AuthProps, AuthState> {
@@ -30,21 +35,43 @@ class Auth extends React.Component<AuthProps, AuthState> {
       signupEmail: "",
       signupPassword: "",
       signupPasswordC: "",
+      message: " ",
+      messagestatus: 1,
+      signedup: false
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleSignUp = (e: any) => {
+  handleSignUp = async(e: any) => {
     e.preventDefault();
+    if(this.state.signupPassword === this.state.signupPasswordC) {
+        this.setState({signedup: true, message: "Signup Successful", messagestatus: 1}) 
+        await client.mutate({ mutation: ADD_USER , variables: {
+            firstname: this.state.signupFirstName,
+            lastname: this.state.signupLastName,
+            email: this.state.signupEmail,
+            password: this.state.signupPassword
+        }});
+    } else {
+        this.setState({message: "Passwords do not match: Please Type passwords again", messagestatus: 0});
+    }
   };
-  handleLogin = (e: any) => {
+  handleLogin = async(e: any) => {
     e.preventDefault();
-    this.props.authenticate({
-      email: this.state.loginEmail,
-      firstname: "",
-      lastname: "",
+    await client.query({ query: AUTH_USER , variables: {
+        email: this.state.loginEmail,
+        password: this.state.loginPassword
+    }}).then((res:any) => {
+         console.log(res)
+        if(res.data.authUser.email) {
+            this.props.authenticate({
+              email: res.data.authUser.email,
+              firstname: res.data.authUser.firstname,
+              lastname: res.data.authUser.lastname,
+            });
+        }
     });
   };
   changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +81,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
   render() {
     return (
       <div className="auth">
+          <div className={this.state.messagestatus===1?" message success":"message warning"}>{this.state.message}</div>
         <form className="login">
           <div className="formfield">
             <label className="formlabel">Email</label>
@@ -84,7 +112,6 @@ class Auth extends React.Component<AuthProps, AuthState> {
             LOG IN
           </button>
         </form>
-        <div className="or">- - - - - - - - - - OR - - - - - - - - - - </div>
         <form className="signup">
           <div className="formfield">
             <label className="formlabel">First Name</label>
@@ -140,11 +167,20 @@ class Auth extends React.Component<AuthProps, AuthState> {
             type="submit"
             className="btn"
             value="signup"
-            onClick={this.handleSignUp}
+            onClick={this.handleSignUp} disabled={this.state.signedup}
           >
             SIGN UP
           </button>
         </form>
+        <div className="logo">
+            <div className="ball"></div>
+            <div className="moon1"></div>
+            <div className="moon2"></div>
+            <div className="moon3"></div>
+            <div className="line1">COVID</div>
+            <div className="line2">TRACKING</div>
+            <div className="line3">DASHBOARD</div>
+        </div>
       </div>
     );
   }

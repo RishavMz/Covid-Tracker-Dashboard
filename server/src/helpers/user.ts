@@ -24,16 +24,15 @@ export const addUser = {
   },
   resolve: async (_parent: any, args: any) => {
     try {
-      bcrypt.hash(args.password, 16, function (_err: any, hash: any) {
-        return { hash };
+      await bcrypt.hash(args.password, 4).then(async (hash: any) => {
+        const user = new User({
+          firstname: args.firstname,
+          lastname: args.lastname,
+          email: args.email,
+          password: hash,
+        });
+        await user.save();
       });
-      //const user = new User({
-      //    firstname   : args.firstname,
-      //    lastname    : args.lastname ,
-      //    email       : args.email    ,
-      //    password    : args.password
-      //})
-      //await user.save();
     } catch (err: any) {
       console.log(err);
     }
@@ -48,6 +47,14 @@ export const authUser = {
     password: { type: GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_parent: any, args: any) => {
-    return await User.findOne({ email: args.email, password: args.password });
+    let data: Array<any> = [];
+    await User.findOne({ email: args.email }).then(async (res: any) => {
+      await bcrypt.compare(args.password, res.password).then(async(result) => {
+        if (result === true) {
+          data=await User.find({ email: args.email });
+        }
+      });
+    });
+    return data[0];
   },
 };

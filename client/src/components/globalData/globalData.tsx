@@ -30,13 +30,25 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
     last10: [],
   };
   componentDidMount = async () => {
-    await client.query({ query: GET_GLOBAL }).then((res) => {
-      this.setState({
-        totalConfirmed: res.data.getGlobal.totalConfirmed,
-        totalDeaths: res.data.getGlobal.totalDeaths,
-        totalRecovered: res.data.getGlobal.totalRecovered,
+    await client
+      .query({
+        query: GET_GLOBAL,
+        variables: {
+          date:
+            String(new Date().toJSON().slice(8, 10)) +
+            "-" +
+            String(new Date().toJSON().slice(5, 7)) +
+            "-" +
+            String(new Date().toJSON().slice(0, 4)),
+        },
+      })
+      .then((res) => {
+        this.setState({
+          totalConfirmed: res.data.getGlobal.totalConfirmed,
+          totalDeaths: res.data.getGlobal.totalDeaths,
+          totalRecovered: res.data.getGlobal.totalRecovered,
+        });
       });
-    });
   };
   render() {
     return (
