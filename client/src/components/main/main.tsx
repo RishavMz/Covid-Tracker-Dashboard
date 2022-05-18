@@ -40,13 +40,12 @@ class Main extends React.Component<MainProps, MainState> {
     render() { 
         return ( <div className='main'>
             <div className='navbar'>
-                <a className='title dateinput' href="#">COVID TRACKING DASHBOARD</a> 
+                <span className='title dateinput'>COVID TRACKING DASHBOARD</span> 
                 <button type="submit" className='logoutbtn' onClick={this.logout} >LOGOUT</button>
             </div>
-            <hr style={{width: "95%"}}/>
+            <hr className='line'/>
             <div className='dashboard'>
             <GloalData onDate={this.state.onDate}/>
-            <hr style={{width: "75%"}}/>
             <CountryTable date={this.state.date}/>
             </div>
         </div> );

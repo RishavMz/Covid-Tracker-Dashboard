@@ -2,16 +2,23 @@
     margin-top: 5px;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
-    margin-left: 40%;
+    margin-left: 50%;
     margin-bottom: 10px;
     border: none;
     display: inline-flex;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+.logoutbtn:hover {
+    background-color: #555555;
+    color: white;
 }
 
 .dateInput {
     height: 20pt;
     width: 150px;
-    margin-right: 40%;
+    margin-right: 45%;
     text-align: right;
     border-radius: 20px;
 }
@@ -22,4 +29,7 @@
 }
 .navbar {
     text-align: center;
+}
+.line {
+    color: rgb(184, 174, 174);
 }

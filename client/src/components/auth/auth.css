@@ -1,14 +1,13 @@
 .signup {
-    border: 1px solid black;
     margin-top: 25px;
     margin-left: 50px;
     border-radius: 50px;
     padding: 25px;
     padding-top: 35px;
     width: 500px;
+    background-color: white;
 }
 .login {
-    border: 1px solid black;
     margin-left: 50px;
     margin-top: 80px;
     margin-bottom: 25px;
@@ -16,6 +15,7 @@
     padding: 25px;
     padding-top: 35px;
     width: 500px;
+    background-color: white;
 }
 .or {
     margin-left: 200px;
@@ -31,6 +31,8 @@
     border-radius: 5px;
     margin-left: 20px;
     width: 200px;
+    background-color: #ebf0ff;
+    color: black
 }
 .formfield {
     height: 40px;
@@ -42,4 +44,16 @@
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
     border: none;
+    color: black;
+    font-weight: bold;
 }
+.btn:hover {
+    background-color: #555555;
+    color: white;
+}
+
+@media (max-width:480px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
+@media (max-width:600px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (max-width:801px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }
+@media (max-width:1025px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (max-width:1281px) { /* big landscape tablets, laptops, and desktops */ }
