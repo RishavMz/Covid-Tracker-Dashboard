@@ -6,6 +6,7 @@ import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { getCountryAll } from "./helpers/country" ;
 import { getCountry } from "./helpers/dailyCountry";
 import { getGlobal } from "./helpers/global";
+import cors from "cors";
 
 //import { initalizer } from "./services/getData";
 //console.log(initalizer);
@@ -16,6 +17,7 @@ import { getGlobal } from "./helpers/global";
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
+app.use(cors);
 
 mongoose.connect(process.env.DATABASE_URL|| "");
 const db = mongoose.connection;

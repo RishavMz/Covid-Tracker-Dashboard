@@ -1,5 +1,7 @@
 import * as React from 'react';
 import "./globalData.css";
+import { GET_GLOBAL } from "../graphql/global";
+import { client } from "../../index";
 
 interface GloalDataProps {
     onDate: any
@@ -26,6 +28,13 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         newDeaths       :   0,
         newRecovered    :   0,
         last10          : []
+    }
+    componentDidMount = async() => {
+        console.log("Called")
+        await client.query({query: GET_GLOBAL}).then((res)=> {
+            console.log("Data"+res.data);
+            this.setState({totalConfirmed: res.data.totalConfirmed, totalDeaths: res.data.totalDeaths, totalRecovered: res.data.totalRecovered})
+        })
     }
     render() { 
         return ( <div className='globalData'>

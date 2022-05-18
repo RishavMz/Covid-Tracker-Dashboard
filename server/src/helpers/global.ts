@@ -6,7 +6,7 @@ export const dailyGlobalData = new GraphQLObjectType({
     description: "Global data for each day for determining trends",
     fields: () => ({
         date            :   { type : GraphQLNonNull( GraphQLString) },  
-        newconfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
+        newConfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
         totalConfirmed  :   { type : GraphQLNonNull( GraphQLInt)    },
         newDeaths       :   { type : GraphQLNonNull( GraphQLInt)    },
         totalDeaths     :   { type : GraphQLNonNull( GraphQLInt)    },
@@ -22,7 +22,7 @@ export const addGlobal = {
         args: {
             id              :   { type : GraphQLNonNull( GraphQLInt)    },      
             date            :   { type : GraphQLNonNull( GraphQLString) },  
-            newconfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
+            newConfirmed     :   { type : GraphQLNonNull( GraphQLInt)    },
             totalConfirmed  :   { type : GraphQLNonNull( GraphQLInt)    },
             newDeaths       :   { type : GraphQLNonNull( GraphQLInt)    },
             totalDeaths     :   { type : GraphQLNonNull( GraphQLInt)    },
@@ -33,7 +33,7 @@ export const addGlobal = {
             try {
                 const global = new Global({ 
                     date            :   args.date           ,  
-                    newconfirmed     :   args.newconfirmed    ,
+                    newConfirmed    :  args.newConfirmed    ,
                     totalConfirmed  :   args.totalConfirmed ,
                     newDeaths       :   args.newDeaths      ,
                     totalDeaths     :   args.totalDeaths    ,
@@ -55,6 +55,7 @@ export const getGlobal  = {
         date: { type: GraphQLNonNull( GraphQLString ) }
     },
     resolve :async(_parent: any, args: any) => {
+        console.log(args.date)
         return await Global.findOne({ date: args.date });
     }
 }
