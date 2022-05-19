@@ -80,7 +80,7 @@
   .countryTable {
     margin-left: 2%;
     margin-right: 2%;
-    height: 60px;
+    height: 30vh;
     overflow-y: scroll;
   }
 }

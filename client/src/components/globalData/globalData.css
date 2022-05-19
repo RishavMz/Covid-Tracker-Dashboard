@@ -2,7 +2,8 @@
   margin: 25px;
   margin-top: 5px;
   padding: 25px;
-  display: inline-table;
+  padding-bottom: 5px;
+  display: inline-block;
   width: 30%;
   text-align: center;
   height: 30vh;
@@ -10,22 +11,27 @@
   border-radius: 10px;
   margin-left: 35px;
 }
-canvas {
-  height: 30vh;
-  width: 48%;
-  margin: -4%;
-  margin-left: -2%;
-}
+
 
 .globalTrends {
   margin: 25px;
   margin-top: 5px;
   padding: 25px;
-  display: inline-table;
-  width: 54%;
+  display: inline-block;
+  width: 55%;
   height: 30vh;
   border-radius: 10px;
   background-color: white;
+  overflow: hidden;
+}
+canvas {
+  scale: auto;
+  right: 20px;
+  height: 30vh;
+  width: 50%;
+  margin-top: -4%;
+  margin-left: -5%;
+  margin-right: -2.5%;
 }
 
 .globalLabel {
@@ -38,6 +44,7 @@ canvas {
   font-size: 16pt;
   color: orange;
 }
+
 @media (max-width: 1024px) {
   .globalStats {
     display: inline-flex;

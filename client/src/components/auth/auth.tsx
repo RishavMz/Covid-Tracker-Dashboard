@@ -72,6 +72,8 @@ class Auth extends React.Component<AuthProps, AuthState> {
               lastname: res.data.authUser.lastname,
             });
         }
+    }).catch((err: any) => {
+      this.setState({message: "Incorrect password", messagestatus: 0});
     });
   };
   changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
