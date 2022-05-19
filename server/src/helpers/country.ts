@@ -1,4 +1,4 @@
-/*import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt} from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt} from "graphql";
 import { Country } from "../models/country";
 
 export const countryData = new GraphQLObjectType({
@@ -47,4 +47,14 @@ export const addCountry = {
     }
 } 
 
-*/
+
+export const getCountryAll = {
+    type: new GraphQLList(countryData),
+    description: "Get all country details by date",
+    args: {
+      date: { type: GraphQLNonNull(GraphQLString) },
+    },
+    resolve: async (_parent: any, _args: any) => {
+      return await Country.find().sort({ countryName: 1 });
+    },
+  };

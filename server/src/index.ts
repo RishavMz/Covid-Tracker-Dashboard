@@ -4,19 +4,24 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import {
-  getCountryAll,
   getCountry,
   getCountryDate,
 } from "./helpers/dailyCountry";
+import { getCountryAll } from "./helpers/country";
 import { addUser, authUser } from "./helpers/user";
 import { getGlobal } from "./helpers/global";
 import cors from "cors";
 
-//import { initalizer } from "./services/getData";
-//console.log(initalizer);
+//import { fillData, getCountries } from "./services/fillData";
+//console.log(getCountries);
+//setTimeout(async() => {
+//  await console.log(fillData);
+//}, 2000);
+//import { getCountries } from "./services/fillData";
+//console.log(getCountries)
 
-import { fetchData } from "./services/getData";
-console.log(fetchData);
+//import { fetchData } from "./services/getData";
+//console.log(fetchData);
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;

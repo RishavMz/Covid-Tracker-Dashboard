@@ -15,7 +15,10 @@
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "dev1": "nodemon index.ts",
     "dev2": "nodemon --exec ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vercelstart": "vercel dist/index.js",
+    "verceldeploy": "vercel deploy --prod",
+    "start:prod": "node build/server.js"
   },
   "author": "RishavMz",
   "license": "ISC",
@@ -27,7 +30,8 @@
     "express": "^4.18.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.8.0",
-    "mongoose": "^6.3.3"
+    "mongoose": "^6.3.3",
+    "vercel": "^24.2.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

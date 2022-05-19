@@ -43,7 +43,7 @@ const dailySchema = new mongoose.Schema({
   },
 });
 
-/*const countrySchema = new mongoose.Schema({
+const countrySchema = new mongoose.Schema({
     countryName: {
         type: String,
         required: true
@@ -51,17 +51,14 @@ const dailySchema = new mongoose.Schema({
     newConfirmed: {
         type: Number,
         default: 0,
-        required: true
     },
     newDeaths: {
         type: Number,
         default: 0,
-        required: true
     },
     newRecovered: {
         type: Number,
         default: 0,
-        required: true
     },
     totalConfirmed: {
         type: Number,
@@ -80,6 +77,6 @@ const dailySchema = new mongoose.Schema({
     }
 });
 
-export const Country = mongoose.model("Country", countrySchema);*/
+export const Country = mongoose.model("Country", countrySchema);
 
 export const Daily = mongoose.model("Daily", dailySchema);

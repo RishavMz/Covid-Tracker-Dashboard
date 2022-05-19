@@ -71,17 +71,6 @@ export const getCountryDate = {
   },
 };
 
-export const getCountryAll = {
-  type: new GraphQLList(dailyCountryData),
-  description: "Get all country details by date",
-  args: {
-    date: { type: GraphQLNonNull(GraphQLString) },
-  },
-  resolve: async (_parent: any, args: any) => {
-    return await Daily.find({ date: args.date }).sort({ countryName: 1 });
-  },
-};
-
 export const getCountry = {
   type: new GraphQLList(dailyCountryData),
   description: "Get different date details by country",
