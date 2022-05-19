@@ -3,13 +3,10 @@ import { graphqlHTTP } from "express-graphql";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import {
-  getCountry,
-  getCountryDate,
-} from "./helpers/dailyCountry";
+import { getCountry, getCountryDate } from "./helpers/dailyCountry";
 import { getCountryAll } from "./helpers/country";
 import { addUser, authUser } from "./helpers/user";
-import { getGlobal } from "./helpers/global";
+import { getGlobal, getGlobalTrend } from "./helpers/global";
 import cors from "cors";
 
 //import { fillData, getCountries } from "./services/fillData";
@@ -20,18 +17,18 @@ import cors from "cors";
 //import { getCountries } from "./services/fillData";
 //console.log(getCountries)
 
-//import { fetchData } from "./services/getData";
-//console.log(fetchData);
-
+//import { getGlobalData} from "./services/fillData";
+//getGlobalData();
+//import { Global } from "./models/global";
+//async function ada() {
+//  await Global.collection.drop();
+//}
+//ada()
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
-app.use(
-  cors({
-      origin: "*",
-  })
-);
+app.use(cors());
 
 mongoose.connect(process.env.DATABASE_URL || "");
 const db = mongoose.connection;
@@ -47,6 +44,8 @@ const schema = new GraphQLSchema({
       getCountryAll: getCountryAll,
       getCountryDate: getCountryDate,
       getGlobal: getGlobal,
+      getGlobalTrend: getGlobalTrend
+      
     }),
   }),
   mutation: new GraphQLObjectType({

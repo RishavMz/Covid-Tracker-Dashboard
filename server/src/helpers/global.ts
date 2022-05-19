@@ -3,6 +3,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLInt,
+  GraphQLList,
 } from "graphql";
 import { Global } from "../models/global";
 
@@ -59,5 +60,13 @@ export const getGlobal = {
   },
   resolve: async (_parent: any, args: any) => {
     return await Global.findOne({ date: args.date });
+  },
+};
+
+export const getGlobalTrend = {
+  type: new GraphQLList(dailyGlobalData),
+  description: "Get global details for a given trend",
+  resolve: async (_parent: any, _args: any) => {
+    return await Global.find();
   },
 };

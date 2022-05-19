@@ -10,6 +10,12 @@
   border-radius: 10px;
   margin-left: 35px;
 }
+canvas {
+  height: 30vh;
+  width: 48%;
+  margin: -4%;
+  margin-left: -2%;
+}
 
 .globalTrends {
   margin: 25px;

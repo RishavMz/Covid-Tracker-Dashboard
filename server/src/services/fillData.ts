@@ -1,7 +1,7 @@
 
-
+/*
 import axios from "axios";
-import { /*Daily,*/Country } from "../models/country";
+import { Daily,Country } from "../models/country";
 
 
 
@@ -10,7 +10,7 @@ const countries = [{
     Slug: "",
     Country: ""
 }] ;
-//var index = 0;
+var index = 0;
 export const getCountries = axios
   .get(`https://api.covid19api.com/summary`)
   .then(async (res: any) => {
@@ -34,7 +34,7 @@ export const getCountries = axios
     });
   });
 
-/*export const fillData = setInterval(() => {
+export const fillData = setInterval(() => {
     console.log(countries.length, index);
     if(countries.length==1) {
         console.log("H1");
@@ -75,7 +75,7 @@ export const getCountries = axios
 */
 
 
-/*import { Daily } from "../models/country";
+import { Daily } from "../models/country";
 import { Global } from "../models/global";
 
 
@@ -103,7 +103,7 @@ export async function getGlobalData() {
             console.log(JSON.stringify(args))
             try {
                 const global = new Global({
-                  date: args.date,
+                  date: date,
                   newConfirmed: args[0].newConfirmed,
                   totalConfirmed: args[0].totalConfirmed,
                   newDeaths: args[0].newDeaths,
@@ -112,10 +112,10 @@ export async function getGlobalData() {
                   totalRecovered: args[0].totalRecovered,
                 });
                 await global.save();
+                console.log(args.date)
               } catch (err) {
                 console.log(err);
               }
         });
     }
 }
-*/

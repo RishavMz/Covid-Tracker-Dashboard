@@ -16,9 +16,7 @@ const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 8000;
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: "*",
-}));
+app.use((0, cors_1.default)());
 mongoose_1.default.connect(process.env.DATABASE_URL || "");
 const db = mongoose_1.default.connection;
 db.on("error", (error) => console.log(error));

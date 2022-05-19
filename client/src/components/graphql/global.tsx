@@ -13,3 +13,17 @@ export const GET_GLOBAL = gql`
     }
   }
 `;
+
+export const GET_GLOBAL_TREND = gql`
+query getGlobalTrend {
+  getGlobalTrend {
+    date
+    totalConfirmed
+    totalDeaths
+    totalRecovered
+    newConfirmed
+    newDeaths
+    newRecovered
+  }
+}
+`
