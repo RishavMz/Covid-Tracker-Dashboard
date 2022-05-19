@@ -6,12 +6,14 @@ npm install
 
 ### To obtain a development environment, perform the following:
 
-In one terminal:
+To compile to JS) :
 ```
 npm run watch
 ```
 
-In another terminal:
+Start server:
 ```
 npm start
 ```
+
+Copy the .env.example file and save its content as .env with required values
