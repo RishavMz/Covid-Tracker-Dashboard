@@ -2,7 +2,41 @@ import * as React from "react";
 import "./globalData.css";
 import { GET_GLOBAL, GET_GLOBAL_TREND } from "../graphql/global";
 import { client } from "../../index";
-import Chart from "simple-chart";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Daily cases",
+    },
+  },
+};
+
 
 interface GloalDataProps {
   onDate: any;
@@ -20,6 +54,9 @@ interface GloalDataState {
   graphConfirmed: any;
   graphDeaths: any;
   graphRecovered: any;
+  chartData: any;
+  datasets: any;
+  labels: any;
 }
 
 class GloalData extends React.Component<GloalDataProps, GloalDataState> {
@@ -35,6 +72,30 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
     graphConfirmed: [],
     graphDeaths: [],
     graphRecovered: [],
+    chartData: {},
+    labels: [],
+    datasets: { 
+      labels: [],
+      datasets: [
+      {
+        label: "Confirmed",
+        data: [],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Deaths",
+        data: [],
+        borderColor: "rgb(99, 255, 132)",
+        backgroundColor: "rgba(99, 255, 132, 0.5)",
+      },
+      {
+        label: "Recovered",
+        data: [],
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],}
   };
   componentDidMount = async () => {
     await client
@@ -63,77 +124,44 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         const confirmed: any = [],
           deaths: any = [],
           recovered: any = [];
-          console.log(JSON.stringify(res.data.getGlobalTrend))
+        console.log(JSON.stringify(res.data.getGlobalTrend));
         res.data.getGlobalTrend.forEach((data: any) => {
           console.log(JSON.stringify(data));
           confirmed.unshift(data.totalConfirmed);
           deaths.unshift(data.totalConfirmed);
           recovered.unshift(data.totalDeaths);
         });
-        this.setState({
-          graphConfirmed: confirmed,
-          graphDeaths: deaths,
-          graphRecovered: recovered,
-        });
+          this.setState({
+            labels: Array(confirmed.length).join(".").split("."),
+            datasets: { 
+              labels: Array(confirmed.length).join(".").split("."),
+              datasets: [
+              {
+                label: "Confirmed",
+                data: confirmed,
+                borderColor: "rgb(255, 99, 132)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+              },
+              {
+                label: "Deaths",
+                data: deaths,
+                borderColor: "rgb(99, 255, 132)",
+                backgroundColor: "rgba(99, 255, 132, 0.5)",
+              },
+              {
+                label: "Recovered",
+                data: recovered,
+                borderColor: "rgb(53, 162, 235)",
+                backgroundColor: "rgba(53, 162, 235, 0.5)",
+              },
+            ],}
+          })
       })
       .catch((err) => {
         console.log(err);
       });
   };
   render() {
-    let pieOption = {
-      type: "line", // 'line', 'bar', 'radar', 'gauge'
-      style: {
-        colors: [
-          "#f2711c",
-          "#2185d0",
-          "#21ba45",
-          "#b5cc18",
-          "#00b5ad",
-          "#fbbd08",
-          "#6435c9",
-          "#a333c8",
-          "#e03997",
-          "#a5673f",
-        ],
-        font: "12px sans-serif",
-        valueStyle: "{c}%",
-        nameStyle: "{a} {c}%",
-        legend: {
-          orient: "horizontal", // horizontal or vertical
-          position: ["center", "top"],
-        },
-      },
-      radius: "40%", // 60% , 150
-      center: ["0%", "0%"], // ['50%', '50%'], [200, 200]
-      legend: ["Confirmed", "Deaths", "Recovered"],
-      padding: [0, 0, 0, 0],
-      xAxis: {
-        type: "category",
-        data: Array(this.state.graphConfirmed.length).join(".").split("."),
-      },
-      yAxis: {
-        type: "value",
-      },
-      data: [
-        this.state.graphConfirmed,
-        this.state.graphDeaths,
-        this.state.graphRecovered,
-      ],
-    };
-    const doc = document.getElementById("canvas");
-    if (doc && this.state.graphConfirmed.length>0) {
-      const chart = new Chart(document.getElementById("canvas"));
-
-      chart.setOption(pieOption);
-      console.log(this.state.graphConfirmed, this.state.graphDeaths, this.state.graphRecovered)
-    }
-    const showAll=()=>{    }
-    const showc=()=>{    }
-    const showd=()=>{    }
-    const showr=()=>{    }
-    const show5=()=>{    }
-    const show10=()=>{    }
 
     return (
       <div className="globalData">
@@ -147,6 +175,7 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
           <div className="globalValue">{this.state.totalRecovered}</div>
         </div>
         <div className="globalTrends canvas" id="canvas">
+          <Line options={options} data={this.state.datasets} />
         </div>
       </div>
     );

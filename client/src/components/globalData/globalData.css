@@ -25,13 +25,8 @@
   overflow: hidden;
 }
 canvas {
-  scale: auto;
-  right: 20px;
-  height: 30vh;
-  width: 50%;
-  margin-top: -4%;
-  margin-left: -5%;
-  margin-right: -2.5%;
+  margin-top: -12%;
+  scale: 0.6;
 }
 
 .globalLabel {
@@ -58,6 +53,9 @@ canvas {
     width: 60%;
     padding-top: 5vh;
     height: 20vh;
+  }
+  canvas {
+    scale: 1;
   }
 }
 @media (max-width: 500px) {
