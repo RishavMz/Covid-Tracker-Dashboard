@@ -23,10 +23,17 @@ import cors from "cors";
 //import { fetchData } from "./services/getData";
 //console.log(fetchData);
 
+
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
+app.use(function(_req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 mongoose.connect(process.env.DATABASE_URL || "");
 const db = mongoose.connection;

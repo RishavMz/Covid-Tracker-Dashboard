@@ -17,6 +17,12 @@ dotenv_1.default.config();
 const PORT = process.env.PORT || 8000;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.use(function (_req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 mongoose_1.default.connect(process.env.DATABASE_URL || "");
 const db = mongoose_1.default.connection;
 db.on("error", (error) => console.log(error));
