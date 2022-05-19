@@ -39,6 +39,7 @@ class CountryTable extends React.Component<
   };
   changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    console.log("Called")
     this.setState({ [e.target.name]: e.target.value } as any);
     const newCountries = this.state.allCountries.filter((country: any) => {
       return country.countryName

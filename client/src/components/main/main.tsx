@@ -14,7 +14,6 @@ interface MainState {
   firstname: any;
   lastname: any;
   date: any;
-  onDate: any;
 }
 
 class Main extends React.Component<MainProps, MainState> {
@@ -24,17 +23,11 @@ class Main extends React.Component<MainProps, MainState> {
       firstname: "",
       lastname: "",
       date:
-        String(new Date().toJSON().slice(8, 10)) +
-        "-" +
-        String(new Date().toJSON().slice(5, 7)) +
-        "-" +
-        String(new Date().toJSON().slice(0, 4)),
-      onDate:
-        String(new Date().toJSON().slice(8, 10)) +
-        "-" +
-        String(new Date().toJSON().slice(5, 7)) +
-        "-" +
-        String(new Date().toJSON().slice(0, 4)),
+      String(new Date().toJSON().slice(0, 4)) +
+      "-" +
+      String(new Date().toJSON().slice(5, 7)) +
+      "-" +
+      String(new Date().toJSON().slice(8, 10)),
     };
     this.logout = this.logout.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -68,7 +61,7 @@ class Main extends React.Component<MainProps, MainState> {
         </div>
         <hr className="line" />
         <div className="dashboard">
-          <GloalData onDate={this.state.onDate} />
+          <GloalData onDate={this.state.date} />
           <CountryTable date={this.state.date} />
         </div>
       </div>

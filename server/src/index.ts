@@ -15,8 +15,8 @@ import cors from "cors";
 //import { initalizer } from "./services/getData";
 //console.log(initalizer);
 
-//import { fetchData } from "./services/getData";
-//console.log(fetchData);
+import { fetchData } from "./services/getData";
+console.log(fetchData);
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;

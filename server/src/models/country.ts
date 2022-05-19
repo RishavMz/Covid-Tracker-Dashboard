@@ -4,11 +4,11 @@ const dailySchema = new mongoose.Schema({
   date: {
     type: String,
     default:
-      String(new Date().toJSON().slice(8, 10)) +
+      String(new Date().toJSON().slice(0, 4)) +
       "-" +
       String(new Date().toJSON().slice(5, 7)) +
       "-" +
-      String(new Date().toJSON().slice(0, 4)),
+      String(new Date().toJSON().slice(8, 10)),
     required: true,
   },
   countryName: {

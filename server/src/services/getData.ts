@@ -24,11 +24,11 @@ export const fetchData = axios
   .then(async (res) => {
     const global = new Global({
       date:
-        String(new Date().toJSON().slice(8, 10)) +
-        "-" +
-        String(new Date().toJSON().slice(5, 7)) +
-        "-" +
-        String(new Date().toJSON().slice(0, 4)),
+      String(new Date().toJSON().slice(0, 4)) +
+      "-" +
+      String(new Date().toJSON().slice(5, 7)) +
+      "-" +
+      String(new Date().toJSON().slice(8, 10)),
       newconfirmed: res.data.Global.Newconfirmed,
       totalConfirmed: res.data.Global.TotalConfirmed,
       newDeaths: res.data.Global.NewDeaths,
@@ -64,11 +64,11 @@ export const fetchData = axios
     res.data.Countries.forEach(async (country: any) => {
       const dailyData = new Daily({
         date:
-          String(new Date().toJSON().slice(8, 10)) +
-          "-" +
-          String(new Date().toJSON().slice(5, 7)) +
-          "-" +
-          String(new Date().toJSON().slice(0, 4)),
+        String(new Date().toJSON().slice(0, 4)) +
+        "-" +
+        String(new Date().toJSON().slice(5, 7)) +
+        "-" +
+        String(new Date().toJSON().slice(8, 10)),
         countryName: country.Country,
         newConfirmed: country.NewConfirmed,
         newDeaths: country.NewDeaths,

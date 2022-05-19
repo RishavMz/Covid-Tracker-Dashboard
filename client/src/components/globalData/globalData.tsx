@@ -35,11 +35,11 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         query: GET_GLOBAL,
         variables: {
           date:
-            String(new Date().toJSON().slice(8, 10)) +
+            String(new Date().toJSON().slice(0, 4)) +
             "-" +
             String(new Date().toJSON().slice(5, 7)) +
             "-" +
-            String(new Date().toJSON().slice(0, 4)),
+            String(new Date().toJSON().slice(8, 10)),
         },
       })
       .then((res) => {
