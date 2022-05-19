@@ -8,7 +8,7 @@
     "copy-assets": "ts-node tools/copyAssets",
     "tsc": "tsc",
     "watch": "tsc -w",
-    "build": "npm-run-all clean copy-assets",
+    "build": "node dist/index.js",
     "dev:start": "npm-run-all build start",
     "start1": "node src/index.ts",
     "start": "ts-node src/index.ts",
