@@ -30,6 +30,7 @@ const schema = new graphql_1.GraphQLSchema({
             getCountryAll: country_1.getCountryAll,
             getCountryDate: dailyCountry_1.getCountryDate,
             getGlobal: global_1.getGlobal,
+            getGlobalTrend: global_1.getGlobalTrend
         }),
     }),
     mutation: new graphql_1.GraphQLObjectType({
