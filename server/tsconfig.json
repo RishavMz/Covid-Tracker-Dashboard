@@ -9,7 +9,7 @@
         "esnext.asynciterable"
       ],
       "sourceMap": true,
-      "outDir": "./dist",
+      "outDir": "api",
       "moduleResolution": "node",
       "skipLibCheck": true,
       "removeComments": true,
