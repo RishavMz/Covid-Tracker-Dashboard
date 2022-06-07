@@ -18,34 +18,37 @@ const PORT = process.env.PORT || 8000;
 const app = (0, express_1.default)();
 app.use(cors_1.default()); 
 mongoose_1.default.connect(process.env.DATABASE_URL || "");
-const db = mongoose_1.default.connection;
-db.on("error", (error) => console.log(error));
-const schema = new graphql_1.GraphQLSchema({
-    query: new graphql_1.GraphQLObjectType({
-        name: "Query",
-        description: "Root query",
-        fields: () => ({
-            authUser: user_1.authUser,
-            getCountry: dailyCountry_1.getCountry,
-            getCountryAll: country_1.getCountryAll,
-            getCountryDate: dailyCountry_1.getCountryDate,
-            getGlobal: global_1.getGlobal,
-            getGlobalTrend: global_1.getGlobalTrend
+try {
+    const db = mongoose_1.default.connection;
+    const schema = new graphql_1.GraphQLSchema({
+        query: new graphql_1.GraphQLObjectType({
+            name: "Query",
+            description: "Root query",
+            fields: () => ({
+                authUser: user_1.authUser,
+                getCountry: dailyCountry_1.getCountry,
+                getCountryAll: country_1.getCountryAll,
+                getCountryDate: dailyCountry_1.getCountryDate,
+                getGlobal: global_1.getGlobal,
+                getGlobalTrend: global_1.getGlobalTrend
+            }),
         }),
-    }),
-    mutation: new graphql_1.GraphQLObjectType({
-        name: "Mutation",
-        description: "Root mutation",
-        fields: () => ({
-            addUser: user_1.addUser,
+        mutation: new graphql_1.GraphQLObjectType({
+            name: "Mutation",
+            description: "Root mutation",
+            fields: () => ({
+                addUser: user_1.addUser,
+            }),
         }),
-    }),
-});
-app.use("/graphql", (0, express_graphql_1.graphqlHTTP)({
-    schema: schema,
-    graphiql: true,
-}));
-app.listen(PORT, () => {
-    console.log("Server is up and listening on port " + PORT);
-});
+    });
+    app.use("/graphql", (0, express_graphql_1.graphqlHTTP)({
+        schema: schema,
+        graphiql: true,
+    }));
+    app.listen(PORT, () => {
+        console.log("Server is up and listening on port " + PORT);
+    });
+} catch(err) {
+    console.log(err);
+}
 //# sourceMappingURL=index.js.map
