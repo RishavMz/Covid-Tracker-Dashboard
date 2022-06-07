@@ -66,4 +66,11 @@ exports.getGlobal = {
         return yield global_1.Global.findOne({ date: args.date });
     }),
 };
+exports.getGlobalTrend = {
+    type: new graphql_1.GraphQLList(exports.dailyGlobalData),
+    description: "Get global details for a given trend",
+    resolve: (_parent, args) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield global_1.Global.find();
+    }),
+  };
 //# sourceMappingURL=global.js.map
