@@ -111,11 +111,13 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         },
       })
       .then((res) => {
-        this.setState({
-          totalConfirmed: res.data.getGlobal.totalConfirmed,
-          totalDeaths: res.data.getGlobal.totalDeaths,
-          totalRecovered: res.data.getGlobal.totalRecovered,
-        });
+        if(res.data.getGlobal) {
+          this.setState({
+            totalConfirmed: res.data.getGlobal.totalConfirmed,
+            totalDeaths: res.data.getGlobal.totalDeaths,
+            totalRecovered: res.data.getGlobal.totalRecovered,
+          });
+        }
       });
     await client
       .query({ query: GET_GLOBAL_TREND })
@@ -124,9 +126,9 @@ class GloalData extends React.Component<GloalDataProps, GloalDataState> {
         const confirmed: any = [],
           deaths: any = [],
           recovered: any = [];
-        console.log(JSON.stringify(res.data.getGlobalTrend));
+        //console.log(JSON.stringify(res.data.getGlobalTrend));
         res.data.getGlobalTrend.forEach((data: any) => {
-          console.log(JSON.stringify(data));
+          //console.log(JSON.stringify(data));
           confirmed.unshift(data.totalConfirmed);
           deaths.unshift(data.totalConfirmed);
           recovered.unshift(data.totalDeaths);

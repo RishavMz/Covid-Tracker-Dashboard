@@ -64,7 +64,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
         email: this.state.loginEmail,
         password: this.state.loginPassword
     }}).then((res:any) => {
-         console.log(res)
+         //console.log(res)
         if(res.data.authUser.email) {
             this.props.authenticate({
               email: res.data.authUser.email,
